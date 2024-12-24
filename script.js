@@ -63,9 +63,11 @@ function update(timestamp) {
     angle2 += angleVelocity2 * deltaTime;
 }
 
-// Draw pendulum
+// Draw pendulum with trail effect
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Semi-transparent background for trail effect
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Calculate positions
     const bob1X = originX + length1 * Math.sin(angle1);
@@ -78,32 +80,32 @@ function draw() {
     ctx.beginPath();
     ctx.moveTo(originX, originY);
     ctx.lineTo(bob1X, bob1Y);
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 3;
     ctx.stroke();
 
     // Draw first bob
     ctx.beginPath();
-    ctx.arc(bob1X, bob1Y, mass1 / 2, 0, Math.PI * 2);
+    ctx.arc(bob1X, bob1Y, mass1 / 3, 0, Math.PI * 2);
     ctx.fillStyle = '#007BFF';
     ctx.fill();
-    ctx.strokeStyle = '#000';
+    ctx.strokeStyle = '#333';
     ctx.stroke();
 
     // Draw second rod
     ctx.beginPath();
     ctx.moveTo(bob1X, bob1Y);
     ctx.lineTo(bob2X, bob2Y);
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 3;
     ctx.stroke();
 
     // Draw second bob
     ctx.beginPath();
-    ctx.arc(bob2X, bob2Y, mass2 / 2, 0, Math.PI * 2);
+    ctx.arc(bob2X, bob2Y, mass2 / 3, 0, Math.PI * 2);
     ctx.fillStyle = '#FF4136';
     ctx.fill();
-    ctx.strokeStyle = '#000';
+    ctx.strokeStyle = '#333';
     ctx.stroke();
 }
 
@@ -129,6 +131,8 @@ const massInput1 = document.getElementById('mass1');
 const massInput2 = document.getElementById('mass2');
 const angleSlider1 = document.getElementById('angle1');
 const angleSlider2 = document.getElementById('angle2');
+const startBtn = document.getElementById('startBtn');
+
 
 // Event listeners for controls
 lengthSlider1.addEventListener('input', () => {
@@ -169,3 +173,5 @@ startBtn.addEventListener('click', () => {
         requestAnimationFrame(animate);
     }
 });
+
+
